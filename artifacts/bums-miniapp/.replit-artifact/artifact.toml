@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/bums-miniapp/"
+title = "BUMS Telegram Mini App"
+version = "1.0.0"
+id = "artifacts/bums-miniapp"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/bums-miniapp/" ]
+localPort = 22908
+
+[services.development]
+run = "pnpm --filter @workspace/bums-miniapp run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/bums-miniapp", "run", "build" ]
+publicDir = "artifacts/bums-miniapp/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22908"
+BASE_PATH = "/bums-miniapp/"
